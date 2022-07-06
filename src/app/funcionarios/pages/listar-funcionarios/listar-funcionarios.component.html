@@ -1,0 +1,42 @@
+<div class="container">
+    <aside id="lateral">
+        <h2>Funcionarios</h2>
+    </aside>
+    <main>
+        <button id="add" mat-mini-fab color="accent" (click)="abrirFormFuncionario()"><mat-icon>add</mat-icon></button>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+        <table mat-table [dataSource]="funcionarios" class="mat=elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>#</th>
+                <td mat-cell *matCellDef="let f">{{ f.id }}</td>
+            </ng-container>
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef>Nome</th>
+                <td mat-cell *matCellDef="let f">
+                    <a href="" [routerLink]="f.id" 
+                    routerLinkActive="ativo">
+                        {{ f.nome }}
+                    </a>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let f">{{ f.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Excluir</th>
+                <td mat-cell *matCellDef="let f">
+                    <button mat-icon-button color="warn" (click)="deletarFuncionario(f)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="colunas"></tr>
+            <tr mat-row *matRowDef="let row; columns: colunas"></tr>
+        </table>
+    </main>
+</div>
