@@ -51,7 +51,7 @@ export class FormFuncionarioComponent implements OnInit {
   }
 
   salvar(): void {
-    this.salvandoFuncionario = true
+    this.salvandoFuncionario = true // parar retornar true para desativar o spinner
     const f: Funcionario = this.formFuncionario.value
     f.foto = ''
     let obsSalvar: Observable<any>

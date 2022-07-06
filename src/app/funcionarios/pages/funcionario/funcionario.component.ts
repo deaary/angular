@@ -1,6 +1,8 @@
+import { ConfigurableFocusTrap } from '@angular/cdk/a11y';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Funcionario } from '../../models/funcionario';
 import { FuncionarioService } from '../../services/funcionario.service';
@@ -14,7 +16,7 @@ import { FuncionarioService } from '../../services/funcionario.service';
 export class FuncionarioComponent implements OnInit {
 
   formFuncionario: FormGroup = this.fb.group(
-    {
+    {      
       nome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       foto: ['']    
@@ -30,7 +32,8 @@ export class FuncionarioComponent implements OnInit {
   constructor(    
     private fb: FormBuilder,
     private route: ActivatedRoute, // acessar os parametros da rota ativa
-    private funcService: FuncionarioService
+    private funcService: FuncionarioService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -81,9 +84,30 @@ export class FuncionarioComponent implements OnInit {
     }
   }
 
+  atualizarFunc(): void {
+    const func: Funcionario = this.formFuncionario.value
+    func.id = this.funcionario.id
+    func.foto = this.funcionario.foto        
+
+    this.funcService.atualizarFuncionario(func).subscribe(
+      (func) => {    
+            location.reload()
+        this.snackBar.open('Funcionario atualizado com sucesso', 'Ok', {
+          duration: 3000
+        })
+      },
+      () => {
+        this.snackBar.open('Nao foi possivel atualizar o funcionario', 'Ok',{
+          duration: 3000
+        })
+      }
+      )
+    
+  }
+
   recuperarFuncionario(id: number): void {
     this.funcService.getFuncionarioById(id).subscribe(
-      func => {
+      (func) => {
         // 1- pegar o funcionario que foi retornado e colocar dentro da propriedade funcionario
         this.funcionario = func   
         // 2- pegar os dados do funcionario e atribuir esses valores aos seus respectivos campos no formulario
