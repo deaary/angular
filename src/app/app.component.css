@@ -6,3 +6,7 @@ mat-toolbar-row{
 .separador{
     flex-grow: 1;
 }
+
+mat-toolbar-row{
+    background-color: blueviolet;
+}

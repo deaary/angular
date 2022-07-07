@@ -6,7 +6,7 @@
   }
   
   #lateral {
-    background: #3f51b5;
+    background: rgb(130, 28, 224);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,4 +42,14 @@
     bottom: 16px;
   }
 
+  #tablefuncs{
+    background-color: rgb(46, 44, 165);
+  }
+
+  a{
+    text-decoration: none;
+    color: chartreuse;
+  }
+
+  
   
