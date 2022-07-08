@@ -53,10 +53,9 @@ export class FormFuncionarioComponent implements OnInit {
   salvar(): void {
     this.salvandoFuncionario = true // parar retornar true para desativar o spinner
     const f: Funcionario = this.formFuncionario.value
-    f.foto = ''
     let obsSalvar: Observable<any>
 
-    if (this.formFuncionario.value.foto.length != undefined) {
+    if (this.formFuncionario.value.foto.length > 0) {
       obsSalvar = this.funcService.salvarFuncionario(f, this.foto)
     } else {
       obsSalvar = this.funcService.salvarFuncionario(f)

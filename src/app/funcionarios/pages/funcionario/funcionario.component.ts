@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Funcionario } from '../../models/funcionario';
 import { FuncionarioService } from '../../services/funcionario.service';
 
@@ -85,11 +86,34 @@ export class FuncionarioComponent implements OnInit {
   }
 
   atualizarFunc(): void {
-    const func: Funcionario = this.formFuncionario.value
+    const func: Funcionario = { ...this.formFuncionario.value}
     func.id = this.funcionario.id
-    func.foto = this.funcionario.foto        
+    func.foto = this.funcionario.foto  
+    
+    const temFoto = this.formFuncionario.value.foto.length > 0
 
-    this.funcService.atualizarFuncionario(func).subscribe(
+    const obsSalvar: Observable<any> = this.funcService.atualizarFuncionario(func, temFoto ? this.foto : undefined)
+
+    obsSalvar.subscribe(
+      (resultado) => {
+        if (resultado instanceof Observable<Funcionario>) {
+          resultado.subscribe(
+            (func) => {
+              this.snackBar.open('Funcionário salvo com sucesso', 'Ok', {
+                duration: 3000
+              })
+              this.recuperarFuncionario(func.id)
+            }
+          )
+        }
+        this.snackBar.open('Funcionario salvo com sucesso', 'Ok', {
+          duration: 3000
+        })
+        this.recuperarFuncionario(resultado.id)
+      }
+    )
+
+    /* this.funcService.atualizarFuncionario(func).subscribe(
       () => {    
             location.reload()
         this.snackBar.open('Funcionario atualizado com sucesso', 'Ok', {
@@ -101,7 +125,7 @@ export class FuncionarioComponent implements OnInit {
           duration: 3000
         })
       }
-      )
+      ) */
     
   }
 
