@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormFuncionarioComponent } from './components/form-funcionario/form-funcionario.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DeletarFuncComponent } from './components/deletar-func/deletar-func.component';
+import { GPodeSairComponent } from './components/g-pode-sair/g-pode-sair.component';
 
 
 
@@ -15,7 +16,7 @@ import { DeletarFuncComponent } from './components/deletar-func/deletar-func.com
   declarations: [
     ListarFuncionariosComponent,
     FuncionarioComponent,    
-    FormFuncionarioComponent, DeletarFuncComponent
+    FormFuncionarioComponent, DeletarFuncComponent, GPodeSairComponent
   ],
   imports: [
     CommonModule,

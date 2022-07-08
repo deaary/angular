@@ -90,7 +90,7 @@ export class FuncionarioComponent implements OnInit {
     func.foto = this.funcionario.foto        
 
     this.funcService.atualizarFuncionario(func).subscribe(
-      (func) => {    
+      () => {    
             location.reload()
         this.snackBar.open('Funcionario atualizado com sucesso', 'Ok', {
           duration: 3000

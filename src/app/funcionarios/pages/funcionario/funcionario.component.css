@@ -6,6 +6,10 @@ mat-card, .loader{
     left: 0;
 }
 
+mat-card mat-card-header button{
+    margin-left: auto;
+}
+
 .loader {
     display: flex;
     flex-direction: column;
