@@ -30,11 +30,19 @@ export class FuncionarioService {
       this.storage.refFromURL(func.foto).delete().pipe(
         mergeMap(() => {
           //mergeMap tem a funcao de pegar dois ou mais observables e transformar todos em um so
-          return this.http.delete<any>(`${this.baseUrl}/${func.id}`)
-        })
-      )
+          return this.http.delete<any>(`${this.baseUrl}/${func.id}`)          
+        }),        
+          tap((funcionario) => {
+            this.atualizarFuncionarioSub$.next(true)
+          })
+        )      
     }
     return this.http.delete<any>(`${this.baseUrl}/${func.id}`)
+    .pipe(
+      tap((funcionario) => {
+        this.atualizarFuncionarioSub$.next(true)
+      })
+    )
   }
 
   getFuncionarioById(id: number): Observable<Funcionario> {

@@ -2,9 +2,11 @@ import { ConfigurableFocusTrap } from '@angular/cdk/a11y';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DeletarFuncComponent } from '../../components/deletar-func/deletar-func.component';
 import { Funcionario } from '../../models/funcionario';
 import { FuncionarioService } from '../../services/funcionario.service';
 
@@ -31,10 +33,12 @@ export class FuncionarioComponent implements OnInit {
   naoEncontrado: boolean = false
 
   constructor(    
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private route: ActivatedRoute, // acessar os parametros da rota ativa
     private funcService: FuncionarioService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -146,6 +150,27 @@ export class FuncionarioComponent implements OnInit {
         }
     )
   }
-    
-  
+
+  deletar(): void {
+    const dialogRef = this.dialog.open(DeletarFuncComponent)
+
+    const func: Funcionario = { ...this.formFuncionario.value}    
+    func.id = this.funcionario.id
+    dialogRef.afterClosed().subscribe(
+      (bool) => {
+        if(bool) {
+          this.funcService.deleteFuncionario(func).subscribe(
+            () => {
+              
+              this.snackBar.open("Funcionário deletado", 'Ok', {
+                duration: 3000                
+              })
+              this.router.navigateByUrl("/funcionarios")
+            }
+          )
+        }
+      }
+    )
+
+  }
 }
