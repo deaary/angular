@@ -9,6 +9,7 @@ import { FormFuncionarioComponent } from './components/form-funcionario/form-fun
 import { HttpClientModule } from '@angular/common/http';
 import { DeletarFuncComponent } from './components/deletar-func/deletar-func.component';
 import { GPodeSairComponent } from './components/g-pode-sair/g-pode-sair.component';
+import { NavbarComponent } from '../components/navbar/navbar.component';
 
 
 
@@ -16,7 +17,10 @@ import { GPodeSairComponent } from './components/g-pode-sair/g-pode-sair.compone
   declarations: [
     ListarFuncionariosComponent,
     FuncionarioComponent,    
-    FormFuncionarioComponent, DeletarFuncComponent, GPodeSairComponent
+    FormFuncionarioComponent, 
+    DeletarFuncComponent, 
+    GPodeSairComponent, 
+    NavbarComponent
   ],
   imports: [
     CommonModule,
