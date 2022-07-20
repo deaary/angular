@@ -91,7 +91,7 @@ export class FuncionarioComponent implements OnInit {
 
   atualizarFunc(): void {
     const func: Funcionario = { ...this.formFuncionario.value}
-    func.id = this.funcionario.id
+    func.idFuncionario = this.funcionario.idFuncionario
     func.foto = this.funcionario.foto  
     
     const temFoto = this.formFuncionario.value.foto.length > 0
@@ -106,14 +106,14 @@ export class FuncionarioComponent implements OnInit {
               this.snackBar.open('Funcionário salvo com sucesso', 'Ok', {
                 duration: 3000
               })
-              this.recuperarFuncionario(func.id)
+              this.recuperarFuncionario(func.idFuncionario)
             }
           )
         }
         this.snackBar.open('Funcionario salvo com sucesso', 'Ok', {
           duration: 3000
         })
-        this.recuperarFuncionario(resultado.id)
+        this.recuperarFuncionario(resultado.idFuncionario)
       }
     )
 
@@ -155,7 +155,7 @@ export class FuncionarioComponent implements OnInit {
     const dialogRef = this.dialog.open(DeletarFuncComponent)
 
     const func: Funcionario = { ...this.formFuncionario.value}    
-    func.id = this.funcionario.id
+    func.idFuncionario = this.funcionario.idFuncionario
     dialogRef.afterClosed().subscribe(
       (bool) => {
         if(bool) {
